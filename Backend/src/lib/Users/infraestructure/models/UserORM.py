@@ -1,7 +1,7 @@
 from sqlalchemy import Column,String,Date
 from sqlalchemy.dialects.postgresql import UUID
 from ..database.DatabaseCofig import Base
-
+from sqlalchemy.orm import relationship
 
 class UserORM(Base):
 
@@ -16,5 +16,7 @@ class UserORM(Base):
     Ine = Column(String(18),nullable=False,unique=True)
     Correo = Column(String(100),nullable=False,unique=True,index=True)
     Numero = Column(String(50),nullable=False)
+
+    citas = relationship("AppoimentORM", back_populates="visitante")
     
 

@@ -26,7 +26,7 @@ class CarRepository(ABC):
         pass
     
     @abstractmethod
-    def getCarByPlates(self,paltes:CarPlates) -> Car:
+    def getCarByPlates(self,plates:CarPlates) -> Car:
         pass
 
     @abstractmethod

@@ -9,11 +9,11 @@ class Car:
 
     def __init__(self,id:Optional[str] = None,brand:Optional[str] = None,model:Optional[str] = None,color:Optional[str] = None,plates:Optional[str] = None):
         
-        id = CarId(id) if id else None
-        brand = CarBrand(brand) if brand else None
-        model = CarModel(model) if model else None
-        color = CarColor(color) if color else None
-        plates = CarPlates(plates) if plates else None
+        self.id = CarId(id)
+        self.brand = CarBrand(brand) if brand else None
+        self.model = CarModel(model) if model else None
+        self.color = CarColor(color) if color else None
+        self.plates = CarPlates(plates) if plates else None
 
 
 

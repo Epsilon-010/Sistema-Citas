@@ -1,5 +1,6 @@
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column,String
+from sqlalchemy.orm import relationship
 from ....Users.infraestructure.database.DatabaseCofig import Base
 
 class CarORM(Base):
@@ -11,3 +12,5 @@ class CarORM(Base):
     Model = Column(String(6),nullable=True)
     Color = Column(String(15),nullable=True)
     Plates = Column(String(12),nullable=False)
+
+    citas = relationship("AppoimentORM", back_populates="car")

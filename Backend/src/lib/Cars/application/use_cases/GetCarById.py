@@ -8,5 +8,5 @@ class GetCarById:
         self._repository = repository
     
     async def run(self,id:str):
-        return self._repository.getCarById(CarId(id))
+        return await self._repository.getCarById(CarId(id))
 
