@@ -11,11 +11,7 @@ export default function Navbar() {
   const location = useLocation();
 
   const menuItems = [
-    {
-      name: "Home",
-      icon: <HomeIcon className="w-5 h-5" />,
-      path: "/Bienvda",
-    },
+    { name: "Home", icon: <HomeIcon className="w-5 h-5" />, path: "/Bienvda" },
     {
       name: "Agregar",
       icon: <PlusIcon className="w-5 h-5" />,
@@ -39,23 +35,27 @@ export default function Navbar() {
   ];
 
   return (
-    <aside className="w-64 bg-[#1e3a8a] text-white flex flex-col fixed h-screen">
-      <div className="flex items-center justify-center bg-[#60a5fa] py-4">
-        <img src="/logo.png" alt="La Salle Oaxaca" className="h-12" />
-      </div>
-      <nav className="flex flex-col mt-6 space-y-4 pl-6">
+    <aside className="w-64 bg-[#1e3a8a] text-white flex flex-col fixed h-screen shadow-lg font-sans">
+      {/* Encabezado con logo */}
+
+      <img src="/logo.jpg" alt="La Salle Oaxaca" className="h-24 full-shadow" />
+
+      {/* Menú */}
+      <nav className="flex flex-col mt-8 space-y-3 pl-8 pr-4">
         {menuItems.map((item) => (
           <Link
             key={item.name}
             to={item.path}
-            className={`flex items-center gap-3 py-2 hover:opacity-90 transition ${
+            className={`flex items-center gap-4 py-3 px-3 rounded-xl transition-all duration-200 ${
               location.pathname === item.path
-                ? "font-semibold text-[#60a5fa]"
-                : ""
+                ? "bg-[#182d83] text-gray-100"
+                : "hover:bg-[#182d83] hover:text-gray-100"
             }`}
           >
             {item.icon}
-            {item.name}
+            <span className="text-md font-medium tracking-wide">
+              {item.name}
+            </span>
           </Link>
         ))}
       </nav>

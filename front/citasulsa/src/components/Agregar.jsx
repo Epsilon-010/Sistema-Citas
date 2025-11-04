@@ -1,121 +1,261 @@
 import { useState } from "react";
-import Navbar from "./Navbar"; // tu componente de navegación
 
 export default function Agregar() {
-  const [mostrarNavbar, setMostrarNavbar] = useState(true);
+  const [formData, setFormData] = useState({
+    nombre: "",
+    genero: "",
+    fechaNacimiento: "",
+    ine: "",
+    correo: "",
+    celular: "",
+    fechaCita: "",
+    horaCita: "",
+    area: "",
+    persona: "",
+    medio: "A pie",
+    marca: "",
+    modelo: "",
+    color: "",
+    placas: "",
+  });
 
-  const toggleNavbar = () => {
-    setMostrarNavbar(!mostrarNavbar);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const visitas = JSON.parse(localStorage.getItem("visitas")) || [];
+    visitas.push(formData);
+    localStorage.setItem("visitas", JSON.stringify(visitas));
+    alert("✅ Registro guardado correctamente");
+
+    setFormData({
+      nombre: "",
+      genero: "",
+      fechaNacimiento: "",
+      ine: "",
+      correo: "",
+      celular: "",
+      fechaCita: "",
+      horaCita: "",
+      area: "",
+      persona: "",
+      medio: "A pie",
+      marca: "",
+      modelo: "",
+      color: "",
+      placas: "",
+    });
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Navbar lateral */}
-      {mostrarNavbar && <div className="w-64"></div>}
+    <div className="flex flex-col min-h-screen bg-[#f9fafb]">
+      {/* Formulario */}
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-8 mt-6 space-y-6"
+      >
+        {/* --- DATOS PERSONALES --- */}
+        <section>
+          <h2 className="text-xl font-semibold text-gray-800 border-b pb-2 mb-4">
+            Datos personales de la visita
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Nombre completo"
+              value={formData.nombre}
+              onChange={handleChange}
+              className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+            />
 
-      {/* Contenido principal */}
-      <div className="flex flex-col flex-1">
-        {/* Barra superior */}
-        <div className="bg-blue-900 text-white px-6 py-4 flex items-center justify-between shadow-md">
-          <button onClick={toggleNavbar} className="text-2xl font-bold">
-            ☰
-          </button>
-          <h1 className="text-lg font-semibold">Registro de visita</h1>
-        </div>
+            <select
+              name="genero"
+              value={formData.genero}
+              onChange={handleChange}
+              className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+            >
+              <option value="">Género</option>
+              <option value="Femenino">Femenino</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Otro">Otro</option>
+            </select>
 
-        {/* Formulario */}
-        <div className="p-8 space-y-8">
-          {/* Datos personales */}
-          <div className="bg-white p-6 rounded-lg shadow-md border border-blue-300">
-            <h2 className="text-xl font-semibold mb-4 text-blue-900">
-              Datos personales de la visita
-            </h2>
-            <div className="grid grid-cols-2 gap-6">
-              <input
-                type="text"
-                placeholder="Nombre completo"
-                className="input"
-              />
-              <select className="input">
-                <option>Género</option>
-                <option>Femenino</option>
-                <option>Masculino</option>
-                <option>Otro</option>
-              </select>
+            <div>
+              <label className="block text-sm text-gray-600">
+                Fecha de nacimiento
+              </label>
               <input
                 type="date"
-                placeholder="Fecha de nacimiento"
-                className="input"
-              />
-              <input type="text" placeholder="INE" className="input" />
-              <input
-                type="email"
-                placeholder="Correo electrónico"
-                className="input"
-              />
-              <input
-                type="tel"
-                placeholder="Número de celular"
-                className="input"
+                name="fechaNacimiento"
+                value={formData.fechaNacimiento}
+                onChange={handleChange}
+                className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
               />
             </div>
-          </div>
 
-          {/* Datos de la cita */}
-          <div className="bg-white p-6 rounded-lg shadow-md border border-blue-300">
-            <h2 className="text-xl font-semibold mb-4 text-blue-900">
-              Datos de la cita
-            </h2>
-            <div className="grid grid-cols-2 gap-6">
-              <input type="date" placeholder="Fecha" className="input" />
-              <input type="time" placeholder="Hora" className="input" />
+            <input
+              type="text"
+              name="ine"
+              placeholder="INE"
+              value={formData.ine}
+              onChange={handleChange}
+              className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+            />
+
+            <input
+              type="email"
+              name="correo"
+              placeholder="Correo electrónico"
+              value={formData.correo}
+              onChange={handleChange}
+              className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+            />
+
+            <input
+              type="tel"
+              name="celular"
+              placeholder="Número de celular"
+              value={formData.celular}
+              onChange={handleChange}
+              className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+            />
+          </div>
+        </section>
+
+        {/* --- DATOS DE LA CITA --- */}
+        <section>
+          <h2 className="text-xl font-semibold text-gray-800 border-b pb-2 mb-4">
+            Datos de la cita
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm text-gray-600">
+                Fecha de la cita
+              </label>
               <input
-                type="text"
-                placeholder="Área o departamento visitado"
-                className="input"
-              />
-              <input
-                type="text"
-                placeholder="Persona a quien se visita"
-                className="input"
+                type="date"
+                name="fechaCita"
+                value={formData.fechaCita}
+                onChange={handleChange}
+                className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
               />
             </div>
-          </div>
 
-          {/* Medio de ingreso */}
-          <div className="bg-white p-6 rounded-lg shadow-md border border-blue-300">
-            <h2 className="text-xl font-semibold mb-4 text-blue-900">
-              Medio de ingreso
-            </h2>
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <label className="flex items-center gap-2">
-                  <input type="radio" name="ingreso" value="pie" />A pie
-                </label>
-                <label className="flex items-center gap-2">
-                  <input type="radio" name="ingreso" value="vehiculo" />
-                  En vehículo
-                </label>
+            <div>
+              <label className="block text-sm text-gray-600">
+                Hora de la cita
+              </label>
+              <input
+                type="time"
+                name="horaCita"
+                value={formData.horaCita}
+                onChange={handleChange}
+                className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+              />
+            </div>
+
+            <input
+              type="text"
+              name="area"
+              placeholder="Área o departamento visitado"
+              value={formData.area}
+              onChange={handleChange}
+              className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+            />
+
+            <input
+              type="text"
+              name="persona"
+              placeholder="Persona a quien se visita"
+              value={formData.persona}
+              onChange={handleChange}
+              className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+            />
+          </div>
+        </section>
+
+        {/* --- MEDIO DE INGRESO --- */}
+        <section>
+          <h2 className="text-xl font-semibold text-gray-800 border-b pb-2 mb-4">
+            Medio de ingreso
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center space-x-6">
+              <label className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  name="medio"
+                  value="A pie"
+                  checked={formData.medio === "A pie"}
+                  onChange={handleChange}
+                />
+                <span>A pie</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  name="medio"
+                  value="En vehículo"
+                  checked={formData.medio === "En vehículo"}
+                  onChange={handleChange}
+                />
+                <span>En vehículo</span>
+              </label>
+            </div>
+
+            {formData.medio === "En vehículo" && (
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <input
+                  type="text"
+                  name="marca"
+                  placeholder="Marca"
+                  value={formData.marca}
+                  onChange={handleChange}
+                  className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+                />
+                <input
+                  type="text"
+                  name="modelo"
+                  placeholder="Modelo"
+                  value={formData.modelo}
+                  onChange={handleChange}
+                  className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+                />
+                <input
+                  type="text"
+                  name="color"
+                  placeholder="Color"
+                  value={formData.color}
+                  onChange={handleChange}
+                  className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+                />
+                <input
+                  type="text"
+                  name="placas"
+                  placeholder="Placas"
+                  value={formData.placas}
+                  onChange={handleChange}
+                  className="border rounded-md px-3 py-2 w-full focus:ring-[#1a237e] focus:border-[#1a237e]"
+                />
               </div>
-
-              {/* Datos del vehículo */}
-              <div className="grid grid-cols-4 gap-4">
-                <input type="text" placeholder="Marca" className="input" />
-                <input type="text" placeholder="Modelo" className="input" />
-                <input type="text" placeholder="Color" className="input" />
-                <input type="text" placeholder="Placas" className="input" />
-              </div>
-            </div>
+            )}
           </div>
+        </section>
 
-          {/* Botón registrar */}
-          <div className="flex justify-end">
-            <button className="bg-blue-900 text-white px-6 py-2 rounded-md shadow hover:bg-blue-800 transition">
-              Registrar
-            </button>
-          </div>
+        {/* --- BOTÓN DE ENVÍO --- */}
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="bg-[#1a237e] text-white px-6 py-2 rounded-md hover:bg-[#303f9f] transition"
+          >
+            Registrar
+          </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
