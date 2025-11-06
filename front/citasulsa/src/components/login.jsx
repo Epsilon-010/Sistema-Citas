@@ -6,7 +6,7 @@ export default function Login() {
 
   const handleLogin = () => {
     // Aquí podrías validar usuario/contraseña si lo deseas
-    navigate("/bienvenida"); // Ruta que definiste en App.jsx
+    navigate("/Bienvda"); // Ruta que definiste en App.jsx
   };
 
   return (

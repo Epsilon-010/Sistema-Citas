@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Agregar() {
+export default function Agregar({ visitantes, setVisitantes }) {
   const [formData, setFormData] = useState({
     nombre: "",
     genero: "",
@@ -26,11 +26,26 @@ export default function Agregar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const visitas = JSON.parse(localStorage.getItem("visitas")) || [];
-    visitas.push(formData);
-    localStorage.setItem("visitas", JSON.stringify(visitas));
+
+    // Validación mínima
+    if (!formData.nombre || !formData.fechaCita || !formData.horaCita) {
+      alert(
+        "⚠️ Por favor completa los campos obligatorios (nombre, fecha y hora de cita)"
+      );
+      return;
+    }
+
+    // Agregar al estado global
+    const nuevoRegistro = { ...formData, id: Date.now() };
+    const nuevosVisitantes = [...visitantes, nuevoRegistro];
+    setVisitantes(nuevosVisitantes);
+
+    // Guardar en localStorage para persistencia
+    localStorage.setItem("visitas", JSON.stringify(nuevosVisitantes));
+
     alert("✅ Registro guardado correctamente");
 
+    // Limpiar formulario
     setFormData({
       nombre: "",
       genero: "",
@@ -59,7 +74,7 @@ export default function Agregar() {
       >
         {/* --- DATOS PERSONALES --- */}
         <section>
-          <h2 className="text-xl font-semibold text-gray-800 border-b pb-2 mb-4">
+          <h2 className="text-xl  text-gray-800 border-b pb-2 mb-4 font-[Mitr]">
             Datos personales de la visita
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -128,7 +143,7 @@ export default function Agregar() {
 
         {/* --- DATOS DE LA CITA --- */}
         <section>
-          <h2 className="text-xl font-semibold text-gray-800 border-b pb-2 mb-4">
+          <h2 className="text-xl text-gray-800 border-b pb-2 mb-4 font-[Mitr]">
             Datos de la cita
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -180,7 +195,7 @@ export default function Agregar() {
 
         {/* --- MEDIO DE INGRESO --- */}
         <section>
-          <h2 className="text-xl font-semibold text-gray-800 border-b pb-2 mb-4">
+          <h2 className="text-xl  text-gray-800 border-b pb-2 mb-4 font-[Mitr]">
             Medio de ingreso
           </h2>
           <div className="space-y-4">
@@ -250,7 +265,7 @@ export default function Agregar() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-[#1a237e] text-white px-6 py-2 rounded-md hover:bg-[#303f9f] transition"
+            className="bg-[#1a237e] text-white px-6 py-2 rounded-md hover:bg-[#303f9f] transition font-[Mitr]"
           >
             Registrar
           </button>

@@ -36,43 +36,25 @@ export default function Bienvenida() {
       </div>
 
       {/* Cuadros de acción */}
-      <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl">
+      <div className="mt-20 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-6xl items-center">
         {/* Agregar Cita */}
         <div
           onClick={() => navigate("/agregar")}
-          className="bg-[#e0e7ff] hover:bg-[#c7d2fe] shadow-md rounded-2xl p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300"
+          className="bg-[#e0e7ff] hover:bg-[#c7d2fe] shadow-md rounded-2xl p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 bg-center"
         >
           <PlusIcon className="w-10 h-10 mx-auto text-[#1e3a8a]" />
-          <p className="mt-2 font-semibold text-[#1e3a8a]">Agregar Cita</p>
+          <p className="mt-2  text-[#1e3a8a]">Agregar Cita</p>
         </div>
 
         {/* Consultar Registros */}
         <div
           onClick={() => navigate("/consultar")}
-          className="bg-[#e0e7ff] hover:bg-[#c7d2fe] shadow-md rounded-2xl p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300"
+          className="bg-[#e0e7ff] hover:bg-[#c7d2fe] shadow-md rounded-2xl p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 bg-center"
         >
-          <BookOpenIcon className="w-10 h-10 mx-auto text-[#1e3a8a]" />
-          <p className="mt-2 font-semibold text-[#1e3a8a]">
+          <BookOpenIcon className="w-10 h-10 mx-auto text-[#1e3a8a] font-[Mitr]" />
+          <p className="mt-2  text-[#1e3a8a] font-[Mitr]">
             Consultar Registros
           </p>
-        </div>
-
-        {/* Reagendar */}
-        <div
-          onClick={() => navigate("/reagendar")}
-          className="bg-[#e0e7ff] hover:bg-[#c7d2fe] shadow-md rounded-2xl p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300"
-        >
-          <PencilIcon className="w-10 h-10 mx-auto text-[#1e3a8a]" />
-          <p className="mt-2 font-semibold text-[#1e3a8a]">Reagendar</p>
-        </div>
-
-        {/* Calendario */}
-        <div
-          onClick={() => navigate("/calendario")}
-          className="bg-[#e0e7ff] hover:bg-[#c7d2fe] shadow-md rounded-2xl p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300"
-        >
-          <CalendarIcon className="w-10 h-10 mx-auto text-[#1e3a8a]" />
-          <p className="mt-2 font-semibold text-[#1e3a8a]">Calendario</p>
         </div>
       </div>
     </main>

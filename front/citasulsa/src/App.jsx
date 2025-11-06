@@ -1,96 +1,83 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Login from "./components/login";
 import Bienvda from "./components/Bienvda";
 import Agregar from "./components/Agregar";
-import Navbar from "./components/Navbar";
 import Consultar from "./components/Consultar";
 import Reagendar from "./components/Reagendar";
 import Calendario from "./components/Calendario";
-// Si después agregas más pantallas:
-// import Consultar from "./components/Consultar";
-// import Reagendar from "./components/Reagendar";
-// import Calendario from "./components/Calendario";
+import Navbar from "./components/Navbar";
+import Topbar from "./components/TopBar";
 
 const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleNavbar = () => setIsOpen(!isOpen);
+  const [visitantes, setVisitantes] = useState([]);
+
+  // 🔹 Estructura del layout con navbar lateral y topbar superior
+  const PageLayout = ({ children }) => (
+    <div className="flex">
+      {/* Navbar lateral fija */}
+      <Navbar isOpen={isOpen} toggleNavbar={toggleNavbar} />
+
+      {/* Contenido principal */}
+      <div className="flex-1 md:ml-64 bg-[#f9fafb] min-h-screen pt-14">
+        <Topbar toggleNavbar={toggleNavbar} />
+        <div className="p-8">{children}</div>
+      </div>
+    </div>
+  );
+
   return (
     <Router>
       <Routes>
         {/* Página de login sin navbar */}
         <Route path="/" element={<Login />} />
 
-        {/* Pantalla de bienvenida */}
+        {/* Páginas con navbar y topbar */}
         <Route
-          path="/bienvenida"
+          path="/bienvda"
           element={
-            <div className="flex items-center justify-center min-h-screen bg-[#f9fafb] px-10">
-              <div className="bg-white shadow-2xl rounded-3xl p-12 w-full max-w-[1200px] flex justify-center">
-                <Bienvda />
-              </div>
-            </div>
+            <PageLayout>
+              <Bienvda />
+            </PageLayout>
           }
         />
         <Route
-          path="/Agregar"
+          path="/agregar"
           element={
-            <div className="flex">
-              <Navbar />
-              <div className="flex-1 ml-64 p-10 bg-[#f9fafb] min-h-screen">
-                <Agregar />
-              </div>
-            </div>
+            <PageLayout>
+              <Agregar visitantes={visitantes} setVisitantes={setVisitantes} />
+            </PageLayout>
           }
         />
         <Route
-          path="/Consultar"
+          path="/consultar"
           element={
-            <div className="flex">
-              <Navbar />
-              <div className="flex-1 ml-64 p-10 bg-[#f9fafb] min-h-screen">
-                <Consultar />
-              </div>
-            </div>
+            <PageLayout>
+              <Consultar
+                visitantes={visitantes}
+                setVisitantes={setVisitantes}
+              />
+            </PageLayout>
           }
         />
         <Route
-          path="/Reagendar"
+          path="/reagendar"
           element={
-            <div className="flex">
-              <Navbar />
-              <div className="flex-1 ml-64 p-10 bg-[#f9fafb] min-h-screen">
-                <Reagendar />
-              </div>
-            </div>
+            <PageLayout>
+              <Reagendar />
+            </PageLayout>
           }
         />
         <Route
-          path="/Calendario"
+          path="/calendario"
           element={
-            <div className="flex">
-              <Navbar />
-              <div className="flex-1 ml-64 p-10 bg-[#f9fafb] min-h-screen">
-                <Calendario />
-              </div>
-            </div>
+            <PageLayout>
+              <Calendario />
+            </PageLayout>
           }
         />
-        <Route
-          path="/Bienvda"
-          element={
-            <div className="flex">
-              <Navbar />
-              <div className="flex-1 ml-64 p-10 bg-[#f9fafb] min-h-screen">
-                <Bienvda />
-              </div>
-            </div>
-          }
-        />
-
-        {/* Otras pantallas */}
-        <Route path="/agregar" element={<Agregar />} />
-        {/* Ejemplo si luego agregas más: */}
-        {/* <Route path="/consultar" element={<Consultar />} /> */}
-        {/* <Route path="/reagendar" element={<Reagendar />} /> */}
-        {/* <Route path="/calendario" element={<Calendario />} /> */}
       </Routes>
     </Router>
   );
