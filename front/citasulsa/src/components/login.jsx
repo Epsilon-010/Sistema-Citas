@@ -5,8 +5,22 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Aquí podrías validar usuario/contraseña si lo deseas
-    navigate("/Bienvda"); // Ruta que definiste en App.jsx
+    const rol = prompt(
+      "Ingresa tu rol: admin_sistema, admin_universitario o guardia"
+    );
+
+    if (
+      rol === "admin_sistema" ||
+      rol === "admin_universitario" ||
+      rol === "guardia"
+    ) {
+      localStorage.setItem("rol", rol); // guardamos el rol del usuario
+      navigate("/bienvda"); // redirige después del login
+    } else {
+      alert(
+        "Rol inválido. Intenta con admin_sistema, admin_universitario o guardia."
+      );
+    }
   };
 
   return (
